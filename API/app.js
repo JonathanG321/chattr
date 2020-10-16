@@ -1,9 +1,11 @@
 const express = require('express');
 const logger = require('morgan');
 const methodOverride = require('method-override');
+const io = require('socket.io')();
 require('dotenv').config();
 
 const app = express();
+const http = require('http').createServer(app);
 
 app.use(logger('dev'));
 
@@ -21,7 +23,15 @@ app.use(
   }),
 );
 
+io.on('connection', (socket) => {
+  console.log('a user connected');
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+});
+
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+http.listen(PORT, () => {
   console.log(`the server is listening at http://localhost:${PORT}`);
 });
