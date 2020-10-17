@@ -1,11 +1,12 @@
 const express = require('express');
 const logger = require('morgan');
 const methodOverride = require('method-override');
-const io = require('socket.io')();
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 const http = require('http').createServer(app);
+const io = require('socket.io')(http);
 
 app.use(logger('dev'));
 
@@ -30,6 +31,13 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 });
+const allowList = ['http://localhost:3001'];
+const corsOptions = {
+  origin: allowList,
+  methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 3000;
 http.listen(PORT, () => {
