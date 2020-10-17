@@ -1,1 +1,3 @@
+const CREATE_SOCKET = 'CREATE_SOCKET';
 
+export { CREATE_SOCKET };
