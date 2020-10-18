@@ -14,7 +14,7 @@ module.exports = {
       };
       const user = await User.create(newUser);
       request.session.userId = user.id;
-      response.json({ id: user.id });
+      response.json(user);
     } catch (e) {
       next(e);
     }
@@ -28,7 +28,7 @@ module.exports = {
         avatar,
       };
       const user = await User.update(newUser, { where: id });
-      response.json({ user });
+      response.json(user);
     } catch (e) {
       next(e);
     }
@@ -40,7 +40,7 @@ module.exports = {
       if (!user) {
         throw new RecordNotFoundError(User, id);
       }
-      response.json({ user });
+      response.json(user);
     } catch (e) {
       next(e);
     }

@@ -9,7 +9,7 @@ module.exports = {
         where: { email },
       });
       request.session.userId = user.id;
-      response.json({ id: user.id });
+      response.json(user);
     } catch (error) {
       next(error);
     }
