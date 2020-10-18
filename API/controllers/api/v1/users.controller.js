@@ -4,7 +4,7 @@ const { RecordNotFoundError } = require('../../api.controller');
 module.exports = {
   async create(request, response, next) {
     try {
-      const { username, password = '', passwordConfirmation, email = '' } = request.body;
+      const { username, password = '', passwordConfirmation, email = '', avatar } = request.body;
       const newUser = {
         username,
         avatar,
