@@ -9,6 +9,12 @@ const User = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
+        async isUnique(username) {
+          const user = await User.findOne({ where: { username } });
+          if (user) {
+            throw new Error('Username already exists');
+          }
+        },
         notEmpty: {
           msg: 'Username cannot be empty',
         },
