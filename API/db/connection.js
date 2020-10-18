@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const connection = process.env.NODE_ENV === 'postgres://localhost/chattr_dev';
+const connection = 'postgres://localhost/chattr_dev';
 
 const sequelize = new Sequelize(connection);
 
