@@ -1,3 +1,6 @@
 const CREATE_SOCKET = 'CREATE_SOCKET';
+const SIGN_IN = 'SIGN_IN';
+const SIGN_UP = 'SIGN_UP';
+const SIGN_OUT = 'SIGN_OUT';
 
-export { CREATE_SOCKET };
+export { CREATE_SOCKET, SIGN_IN, SIGN_UP, SIGN_OUT };
