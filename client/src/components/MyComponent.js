@@ -1,6 +1,7 @@
 import React from 'react';
+import SessionHOC from '../HigherOrderComponents/SessionHOC';
 
-export default class MyComponent extends React.Component {
+class MyComponent extends React.Component {
   constructor(props) {
     super(props);
     this.onMessage = this.onMessage.bind(this);
@@ -14,7 +15,10 @@ export default class MyComponent extends React.Component {
     return (
       <div>
         <h1>React Socket.io Demo.</h1>
+        <button onClick={this.props.createSession}>Sign In</button>
       </div>
     );
   }
 }
+
+export default SessionHOC(SessionHOC(MyComponent));
