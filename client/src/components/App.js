@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import MyComponent from './components/MyComponent';
 import store from '../store';
 import { NotFoundPage, SignInPage, SignUpPage } from './pages';
+import './App.scss';
 
 class App extends Component {
   constructor(props) {
@@ -11,22 +12,24 @@ class App extends Component {
   }
   render() {
     return (
-      <Provider store={store}>
-        <Router>
-          <Switch>
-            <Route exact path="/sign-in">
-              <SignInPage />
-            </Route>
-            <Route exact path="/sign-up">
-              <SignUpPage />
-            </Route>
-            <Route path="*">
-              <NotFoundPage />
-            </Route>
-          </Switch>
-        </Router>
-        {/* <MyComponent /> */}
-      </Provider>
+      <main>
+        <Provider store={store}>
+          <Router>
+            <Switch>
+              <Route exact path="/sign-in">
+                <SignInPage />
+              </Route>
+              <Route exact path="/sign-up">
+                <SignUpPage />
+              </Route>
+              <Route path="*">
+                <NotFoundPage />
+              </Route>
+            </Switch>
+          </Router>
+          {/* <MyComponent /> */}
+        </Provider>
+      </main>
     );
   }
 }

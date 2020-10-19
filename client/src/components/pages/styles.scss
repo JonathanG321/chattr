@@ -1,0 +1,32 @@
+.container {
+  padding: 25px;
+}
+
+.form-item {
+  width: calc(100% - 19px);
+  height: 35px;
+  background-color: rgb(80, 80, 80);
+  padding-left: 15px;
+  margin: 10px 10px 10px 0px;
+  border: thin solid rgba(196, 196, 196, 0.776);
+  border-radius: 5px;
+}
+
+.form-item::placeholder {
+  color: darkgrey;
+}
+
+.button {
+  margin-top: 5px;
+  padding: 8px 15px;
+  font-size: 18px;
+  border: thin solid rgba(196, 196, 196, 0.776);
+  border-radius: 5px;
+  background-color: rgb(80, 80, 80);
+  color: lightgrey;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: grey;
+}
