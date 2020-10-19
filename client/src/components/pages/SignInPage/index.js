@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouterPropTypes } from '../PropTypes/withRouterPropTypes';
-import SessionHOC from '../HigherOrderComponents/SessionHOC';
+import SessionHOC from '../../../HigherOrderComponents/SessionHOC';
 
 function SignInPage(props) {
   const { onSignIn } = props;
