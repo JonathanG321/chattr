@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_UP } from '../actions/types';
+import { SIGN_IN, SIGN_UP, SIGN_OUT } from '../actions/types';
 
 const initialState = {
   user: null,
