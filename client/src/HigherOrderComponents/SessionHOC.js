@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { createSession, destroySession, createUser } from '../actions/sessionActions';
 
 function SessionHOC(Component) {
@@ -14,26 +15,25 @@ function SessionHOC(Component) {
       mapStateToProps,
       mapDispatchToProps,
     )((props) => {
-      function signIn(event) {
+      async function signIn(event) {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const credentials = {
           email: formData.get('email'),
           password: formData.get('password'),
         };
-        props.createSession(credentials).then(({ user, errors }) => {
-          if (user.id && !errors) {
-            props.history.push('/');
-          } else {
-            alert('Login Failed');
-          }
-        });
+        const { user, errors } = await props.createSession(credentials);
+        if (user.id && !errors) {
+          props.history.push('/');
+        } else {
+          alert('Login Failed');
+        }
       }
-      function signOut() {
-        props.destroySession();
+      async function signOut() {
+        await props.destroySession();
         props.history.push('/');
       }
-      function signUp(event) {
+      async function signUp(event) {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const newUser = {
@@ -43,13 +43,12 @@ function SessionHOC(Component) {
           password: formData.get('password'),
           passwordConfirmation: formData.get('password-confirmation'),
         };
-        props.createUser(newUser).then(({ user, errors }) => {
-          if (user.id && !errors) {
-            props.history.push('/');
-          } else {
-            alert('Sign Up Failed');
-          }
-        });
+        const { user, errors } = await props.createUser(newUser);
+        if (user.id && !errors) {
+          props.history.push('/');
+        } else {
+          alert('Sign Up Failed');
+        }
       }
       return <Component {...props} onSignIn={signIn} onSignUp={signUp} onSignOut={signOut} />;
     }),
