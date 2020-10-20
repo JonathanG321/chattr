@@ -1,4 +1,5 @@
 import { API_URL, jsonHeaders } from './base';
+import { NetworkError } from '../utils/errors';
 
 export const Session = {
   create(userCredentials) {
@@ -7,7 +8,12 @@ export const Session = {
       headers: jsonHeaders,
       credentials: 'include',
       body: JSON.stringify(userCredentials),
-    }).then((res) => res.json());
+    }).then(async (res) => {
+      if (res.status !== 200) {
+        throw new NetworkError(await res.json());
+      }
+      return res.json();
+    });
   },
   destroy() {
     return fetch(`${API_URL}/session`, {

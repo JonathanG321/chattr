@@ -1,4 +1,5 @@
 import { API_URL, jsonHeaders } from './base';
+import { NetworkError } from '../utils/errors';
 
 export const User = {
   getCurrentUser() {
@@ -12,6 +13,11 @@ export const User = {
       headers: jsonHeaders,
       credentials: 'include',
       body: JSON.stringify(newUser),
-    }).then((res) => res.json());
+    }).then(async (res) => {
+      if (res.status !== 200) {
+        throw new NetworkError(await res.json());
+      }
+      return res.json();
+    });
   },
 };
