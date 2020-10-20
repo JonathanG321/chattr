@@ -35,11 +35,16 @@ class SignInPage extends Component {
             <input className="form-item" type="password" name="password" />
           </div>
           {!!errors &&
-            errors.map((error) => (
-              <p className="error" key={error.message}>
-                {error.message}
-              </p>
-            ))}
+            errors.map((error) => {
+              if (error.type === 'RecordNotFoundError') {
+                return (
+                  <p className="error" key={error.message}>
+                    {error.message}
+                  </p>
+                );
+              }
+              return null;
+            })}
           <input className="button" type="submit" value="Login" />
         </form>
       </div>
