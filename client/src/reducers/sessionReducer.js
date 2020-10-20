@@ -23,6 +23,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         user: null,
+        errors: null,
       };
     case SIGN_IN_FAILURE:
       return {
