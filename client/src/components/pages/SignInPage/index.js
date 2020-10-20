@@ -8,7 +8,7 @@ import '../styles.scss';
 class SignInPage extends Component {
   componentDidUpdate(oldProps) {
     if (oldProps.user === null && this.props.user && this.props.user.id) {
-      this.props.history.push('/');
+      this.props.history.push('/chat');
     }
   }
   render() {
