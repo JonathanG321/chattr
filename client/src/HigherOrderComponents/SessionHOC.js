@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { createSession, destroySession, createUser } from '../actions/sessionActions';
 
 function SessionHOC(Component) {
-  const mapStateToProps = (state) => ({});
+  const mapStateToProps = (state) => ({
+    user: state.session.user,
+    errors: state.session.errors,
+  });
   const mapDispatchToProps = {
     createSession,
     destroySession,
@@ -14,14 +17,13 @@ function SessionHOC(Component) {
     mapDispatchToProps,
   )((props) => {
     function signIn(credentials) {
-      props.createSession(credentials);
+      return props.createSession(credentials);
     }
     function signOut() {
-      props.destroySession();
-      props.history.push('/');
+      return props.destroySession();
     }
     function signUp(newUser) {
-      props.createUser(newUser);
+      return props.createUser(newUser);
     }
     return <Component {...props} onSignIn={signIn} onSignUp={signUp} onSignOut={signOut} />;
   });
