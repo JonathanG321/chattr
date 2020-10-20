@@ -18,6 +18,11 @@ body {
   margin: 10px 10px 10px 0px;
   border: thin solid rgba(196, 196, 196, 0.776);
   border-radius: 5px;
+  color: lightgrey;
+}
+
+.form-item:focus {
+  outline: rgba(196, 196, 196, 0.776) auto 2px;
 }
 
 .form-item::placeholder {
