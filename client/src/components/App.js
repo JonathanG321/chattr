@@ -1,30 +1,35 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import store from '../store';
-import { NotFoundPage, SignInPage, SignUpPage } from './pages';
+import { NotFoundPage, SignInPage, SignUpPage, HomePage } from './pages';
+import AuthRoute from './common/AuthRoute';
+import SessionHOC from '../HigherOrderComponents/SessionHOC';
 import './App.scss';
 
 class App extends Component {
   render() {
+    const { user } = this.props;
     return (
-      <Provider store={store}>
-        <Router>
-          <Switch>
-            <Route exact path="/sign-in">
-              <SignInPage />
-            </Route>
-            <Route exact path="/sign-up">
-              <SignUpPage />
-            </Route>
-            <Route path="*">
-              <NotFoundPage />
-            </Route>
-          </Switch>
-        </Router>
-      </Provider>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+          <Route exact path="/sign-in">
+            <SignInPage />
+          </Route>
+          <Route exact path="/sign-up">
+            <SignUpPage />
+          </Route>
+          <AuthRoute isSignedIn={!!user} path="/chat">
+            <main>hello</main>
+          </AuthRoute>
+          <Route path="*">
+            <NotFoundPage />
+          </Route>
+        </Switch>
+      </Router>
     );
   }
 }
 
-export default App;
+export default SessionHOC(App);
