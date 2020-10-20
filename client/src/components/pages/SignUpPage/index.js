@@ -43,6 +43,7 @@ class SignUpPage extends Component {
                     </p>
                   );
                 }
+                return <></>;
               })}
           </div>
           <div>
@@ -59,6 +60,7 @@ class SignUpPage extends Component {
                     </p>
                   );
                 }
+                return <></>;
               })}
           </div>
           <div>
@@ -80,6 +82,7 @@ class SignUpPage extends Component {
                     </p>
                   );
                 }
+                return <></>;
               })}
           </div>
           <div>
@@ -96,6 +99,7 @@ class SignUpPage extends Component {
                     </p>
                   );
                 }
+                return <></>;
               })}
           </div>
           <div>
@@ -112,6 +116,7 @@ class SignUpPage extends Component {
                     </p>
                   );
                 }
+                return <></>;
               })}
           </div>
           <input className="button" type="submit" value="Sign Up" />
