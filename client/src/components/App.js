@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import MyComponent from './components/MyComponent';
 import store from '../store';
 import { NotFoundPage, SignInPage, SignUpPage } from './pages';
 import './App.scss';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <main>
@@ -27,7 +23,6 @@ class App extends Component {
               </Route>
             </Switch>
           </Router>
-          {/* <MyComponent /> */}
         </Provider>
       </main>
     );
