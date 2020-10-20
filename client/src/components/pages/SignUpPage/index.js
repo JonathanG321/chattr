@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import SessionHOC from '../../../HigherOrderComponents/SessionHOC';
 import { withRouterPropTypes } from '../../../PropTypes/withRouterPropTypes';
+import ErrorMessage from '../../common/ErrorMessage';
 import '../styles.scss';
 
 class SignUpPage extends Component {
@@ -34,34 +35,14 @@ class SignUpPage extends Component {
               <strong>Username</strong>
             </label>
             <input className="form-item" type="text" name="username" />
-            {errors &&
-              errors.map((error) => {
-                if (error.path === 'username') {
-                  return (
-                    <p className="error" key={error.message}>
-                      {error.message}
-                    </p>
-                  );
-                }
-                return <></>;
-              })}
+            <ErrorMessage errors={errors} type="username" />
           </div>
           <div>
             <label htmlFor="email">
               <strong>Email</strong>
             </label>
             <input className="form-item" type="email" name="email" />
-            {errors &&
-              errors.map((error) => {
-                if (error.path === 'email') {
-                  return (
-                    <p className="error" key={error.message}>
-                      {error.message}
-                    </p>
-                  );
-                }
-                return <></>;
-              })}
+            <ErrorMessage errors={errors} type="email" />
           </div>
           <div>
             <label htmlFor="avatar">
@@ -73,51 +54,21 @@ class SignUpPage extends Component {
               name="avatar"
               placeholder="https://i.kym-cdn.com/entries/icons/original/000/013/564/doge.jpg"
             />
-            {errors &&
-              errors.map((error) => {
-                if (error.path === 'avatar') {
-                  return (
-                    <p className="error" key={error.message}>
-                      {error.message}
-                    </p>
-                  );
-                }
-                return <></>;
-              })}
+            <ErrorMessage errors={errors} type="avatar" />
           </div>
           <div>
             <label htmlFor="password">
               <strong>Password</strong>
             </label>
             <input className="form-item" type="password" name="password" />
-            {errors &&
-              errors.map((error) => {
-                if (error.path === 'password') {
-                  return (
-                    <p className="error" key={error.message}>
-                      {error.message}
-                    </p>
-                  );
-                }
-                return <></>;
-              })}
+            <ErrorMessage errors={errors} type="password" />
           </div>
           <div>
             <label htmlFor="password-confirmation">
               <strong>Password Confirmation</strong>
             </label>
             <input className="form-item" type="password" name="password-confirmation" />
-            {errors &&
-              errors.map((error) => {
-                if (error.path === 'passwordConfirmation') {
-                  return (
-                    <p className="error" key={error.message}>
-                      {error.message}
-                    </p>
-                  );
-                }
-                return <></>;
-              })}
+            <ErrorMessage errors={errors} type="passwordConfirmation" />
           </div>
           <input className="button" type="submit" value="Sign Up" />
         </form>
