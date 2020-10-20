@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { NotFoundPage, SignInPage, SignUpPage, HomePage } from './pages';
+import { NotFoundPage, SignInPage, SignUpPage, HomePage, ChatDisplay } from './pages';
 import AuthRoute from './common/AuthRoute';
 import SessionHOC from '../HigherOrderComponents/SessionHOC';
 import './App.scss';
@@ -21,7 +21,7 @@ class App extends Component {
             <SignUpPage />
           </Route>
           <AuthRoute isSignedIn={!!user} path="/chat">
-            <main>hello</main>
+            <ChatDisplay user={user} />
           </AuthRoute>
           <Route path="*">
             <NotFoundPage />
