@@ -8,23 +8,21 @@ import './App.scss';
 class App extends Component {
   render() {
     return (
-      <main>
-        <Provider store={store}>
-          <Router>
-            <Switch>
-              <Route exact path="/sign-in">
-                <SignInPage />
-              </Route>
-              <Route exact path="/sign-up">
-                <SignUpPage />
-              </Route>
-              <Route path="*">
-                <NotFoundPage />
-              </Route>
-            </Switch>
-          </Router>
-        </Provider>
-      </main>
+      <Provider store={store}>
+        <Router>
+          <Switch>
+            <Route exact path="/sign-in">
+              <SignInPage />
+            </Route>
+            <Route exact path="/sign-up">
+              <SignUpPage />
+            </Route>
+            <Route path="*">
+              <NotFoundPage />
+            </Route>
+          </Switch>
+        </Router>
+      </Provider>
     );
   }
 }
