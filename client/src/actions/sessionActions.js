@@ -1,18 +1,42 @@
-import { SIGN_IN, SIGN_UP, SIGN_OUT, SIGN_IN_FAILURE, SIGN_UP_FAILURE } from './types';
+import { SIGN_IN, SIGN_OUT, SIGN_IN_FAILURE } from './types';
 import { Session } from '../requests/session';
 import { User } from '../requests/user';
+import { createSocket } from './socketActions';
 
-const createSession = (userCredentials) => (dispatch) =>
-  Session.create(userCredentials)
-    .then((user) => dispatch({ type: SIGN_IN, payload: user }).payload)
-    .catch((error) => dispatch({ type: SIGN_IN_FAILURE, payload: error.serverErrors.errors }));
+const createSession = (userCredentials) => async (dispatch) => {
+  try {
+    const user = await Session.create(userCredentials);
+    dispatch(signInUser(user));
+  } catch (error) {
+    dispatch(signInUserError(error));
+  }
+};
 
 const destroySession = () => (dispatch) =>
   Session.destroy().then(() => dispatch({ type: SIGN_OUT }));
 
-const createUser = (newUser) => (dispatch) =>
-  User.create(newUser)
-    .then((user) => dispatch({ type: SIGN_UP, payload: user }).payload)
-    .catch((error) => dispatch({ type: SIGN_UP_FAILURE, payload: error.serverErrors.errors }));
+const createUser = (newUser) => async (dispatch) => {
+  try {
+    const user = await User.create(newUser);
+    dispatch(signInUser(user));
+  } catch (error) {
+    dispatch(signInUserError(error));
+  }
+};
 
-export { createSession, destroySession, createUser };
+const getCurrentUser = () => async (dispatch) => {
+  const user = await User.getCurrentUser();
+  if (user && user.id) {
+    dispatch(signInUser(user));
+  }
+};
+
+const signInUser = (user) => async (dispatch) => {
+  dispatch({ type: SIGN_IN, payload: user });
+  dispatch(createSocket(user.username));
+};
+const signInUserError = (error) => async (dispatch) => {
+  dispatch({ type: SIGN_IN_FAILURE, payload: error.serverErrors.errors });
+};
+
+export { createSession, destroySession, createUser, getCurrentUser };
