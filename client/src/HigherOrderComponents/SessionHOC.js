@@ -1,6 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createSession, destroySession, createUser } from '../actions/sessionActions';
+import {
+  createSession,
+  destroySession,
+  createUser,
+  getCurrentUser,
+} from '../actions/sessionActions';
 
 function SessionHOC(Component) {
   const mapStateToProps = (state) => ({
@@ -11,6 +16,7 @@ function SessionHOC(Component) {
     createSession,
     destroySession,
     createUser,
+    getCurrentUser,
   };
   return connect(
     mapStateToProps,
@@ -25,7 +31,18 @@ function SessionHOC(Component) {
     function signUp(newUser) {
       return props.createUser(newUser);
     }
-    return <Component {...props} onSignIn={signIn} onSignUp={signUp} onSignOut={signOut} />;
+    function getCurrentUser() {
+      return props.getCurrentUser();
+    }
+    return (
+      <Component
+        {...props}
+        getCurrentUser={getCurrentUser}
+        onSignIn={signIn}
+        onSignUp={signUp}
+        onSignOut={signOut}
+      />
+    );
   });
 }
 
