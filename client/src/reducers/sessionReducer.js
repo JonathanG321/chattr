@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_UP, SIGN_OUT, SIGN_IN_FAILURE, SIGN_UP_FAILURE } from '../actions/types';
+import { SIGN_IN, SIGN_OUT, SIGN_IN_FAILURE } from '../actions/types';
 
 const initialState = {
   user: null,
@@ -13,12 +13,6 @@ export default function (state = initialState, action) {
         user: action.payload,
         errors: null,
       };
-    case SIGN_UP:
-      return {
-        ...state,
-        user: action.payload,
-        errors: null,
-      };
     case SIGN_OUT:
       return {
         ...state,
@@ -26,12 +20,6 @@ export default function (state = initialState, action) {
         errors: null,
       };
     case SIGN_IN_FAILURE:
-      return {
-        ...state,
-        user: null,
-        errors: action.payload,
-      };
-    case SIGN_UP_FAILURE:
       return {
         ...state,
         user: null,
