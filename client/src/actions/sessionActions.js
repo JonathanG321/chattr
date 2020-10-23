@@ -25,9 +25,11 @@ const createUser = (newUser) => async (dispatch) => {
 };
 
 const getCurrentUser = () => async (dispatch) => {
-  const user = await User.getCurrentUser();
-  if (user && user.id) {
+  try {
+    const user = await User.getCurrentUser();
     dispatch(signInUser(user));
+  } catch (error) {
+    dispatch(signInUserError(error));
   }
 };
 
