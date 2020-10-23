@@ -1,8 +1,9 @@
-import { SIGN_IN, SIGN_OUT, SIGN_IN_FAILURE } from '../actions/types';
+import { SIGN_IN, SIGN_OUT, SIGN_IN_FAILURE, LOAD } from '../actions/types';
 
 const initialState = {
   user: null,
   errors: null,
+  isLoading: true,
 };
 
 export default function (state = initialState, action) {
@@ -12,18 +13,26 @@ export default function (state = initialState, action) {
         ...state,
         user: action.payload,
         errors: null,
+        isLoading: false,
       };
     case SIGN_OUT:
       return {
         ...state,
         user: null,
         errors: null,
+        isLoading: false,
       };
     case SIGN_IN_FAILURE:
       return {
         ...state,
         user: null,
         errors: action.payload,
+        isLoading: false,
+      };
+    case LOAD:
+      return {
+        ...state,
+        isLoading: true,
       };
     default:
       return state;

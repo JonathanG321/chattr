@@ -11,6 +11,7 @@ function SessionHOC(Component) {
   const mapStateToProps = (state) => ({
     user: state.session.user,
     errors: state.session.errors,
+    isLoading: state.session.isLoading,
   });
   const mapDispatchToProps = {
     createSession,
