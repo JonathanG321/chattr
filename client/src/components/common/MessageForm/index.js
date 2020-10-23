@@ -15,12 +15,12 @@ function MessageForm(props) {
     onSubmit(message);
   }
   return (
-    <div className="">
-      <form className="flex" onSubmit={handleSubmit}>
-        <div>
-          <input type="textarea" name="message" />
+    <div className="max-height">
+      <form className="flex max-height" onSubmit={handleSubmit}>
+        <div className="message-text flex justify-center align-items-center">
+          <input className="form-item text" type="textarea" name="message" />
         </div>
-        <div>
+        <div className="message-submit flex justify-center align-items-center">
           <input type="submit" className="button" value="Send Message" />
         </div>
       </form>

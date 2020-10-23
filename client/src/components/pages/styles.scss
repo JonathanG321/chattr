@@ -108,6 +108,10 @@ nav {
   height: calc(100% - 102px);
 }
 
+.max-height {
+  height: 100%;
+}
+
 .title {
   font-size: xxx-large;
   margin-bottom: 20px;
@@ -126,12 +130,33 @@ nav {
   position: relative;
 }
 
+.chat-form {
+  width: calc(100% - 2px);
+  height: 20%;
+  border: 2px solid rgba(196, 196, 196, 0.776);
+  border-left: none;
+}
+
+.message-text {
+  width: 70%;
+}
+.message-submit {
+  width: 30%;
+  height: 100%;
+}
+
+.text {
+  height: calc(100% - 20px);
+  margin-left: 10px;
+  text-align: start;
+}
+
 .rooms-nav {
   height: 100%;
   width: 25%;
   border: 2px solid rgba(196, 196, 196, 0.776);
   border-top: none;
-  box-shadow: 13px 21px 30px 2px rgba(0, 0, 0, 0.75);
+  box-shadow: 86px -57px 30px -71px rgba(0, 0, 0, 0.75);
   position: relative;
 }
 
@@ -139,6 +164,10 @@ nav {
   height: 100%;
   width: 75%;
   background-color: #242424;
+}
+
+.message-box {
+  height: calc(80% - 2px);
 }
 
 .flex {
