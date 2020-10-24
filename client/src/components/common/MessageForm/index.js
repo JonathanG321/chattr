@@ -18,7 +18,7 @@ function MessageForm(props) {
     <div className="max-height">
       <form className="flex max-height" onSubmit={handleSubmit}>
         <div className="message-text flex justify-center align-items-center">
-          <input className="form-item text" type="textarea" name="message" />
+          <textarea className="form-item text" name="message" />
         </div>
         <div className="message-submit flex justify-center align-items-center">
           <input type="submit" className="button" value="Send Message" />
