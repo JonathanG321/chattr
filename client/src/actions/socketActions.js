@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { addRoom, addMessage } from './roomActions';
+import { addRoom, sendMessage, changeRoom } from './roomActions';
 import { CREATE_SOCKET } from './types';
 
 const createSocket = (username) => (dispatch) => {
@@ -19,8 +19,11 @@ const initSocketEvents = (socket) => (dispatch) => {
   socket.on('join room', (data) => {
     dispatch(addRoom({ roomName: data, messages: [] }));
   });
+  socket.on('set room', (data) => {
+    dispatch(changeRoom(data));
+  });
   socket.on('message', (data) => {
-    dispatch(addMessage(data));
+    dispatch(sendMessage(data));
   });
   socket.on('disconnect', () => {
     console.log('disconnected');
