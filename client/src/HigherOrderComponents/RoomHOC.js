@@ -1,14 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addRoom, addMessage, sendMessage } from '../actions/roomActions';
+import { addRoom, sendMessage, changeRoom } from '../actions/roomActions';
 
 function RoomHOC(Component) {
   const mapStateToProps = (state) => ({
     rooms: state.rooms.rooms,
+    currentRoom: state.rooms.currentRoom,
+    socket: state.socket.socket,
   });
   const mapDispatchToProps = {
     addRoom,
-    addMessage,
+    changeRoom,
     sendMessage,
   };
   return connect(
@@ -18,14 +20,15 @@ function RoomHOC(Component) {
     function addRoom(room) {
       return props.addRoom(room);
     }
-    function addMessage(message) {
-      return props.addMessage(message);
+    function changeRoom(roomName) {
+      return props.changeRoom(roomName);
     }
     function sendMessage(message) {
-      return props.sendMessage(message);
+      console.log(message);
+      props.socket.emit('message', message);
     }
     return (
-      <Component {...props} addRoom={addRoom} sendMessage={sendMessage} addMessage={addMessage} />
+      <Component {...props} changeRoom={changeRoom} addRoom={addRoom} sendMessage={sendMessage} />
     );
   });
 }
