@@ -6,8 +6,7 @@ import '../styles.scss';
 
 export class ChatDisplay extends Component {
   render() {
-    const { user, addMessage, sendMessage, addRoom, currentRoom } = this.props;
-    // sendMessage('hello');
+    const { user, sendMessage, currentRoom, changeRoom, rooms } = this.props;
     return (
       <main className="max-height">
         <nav className="navbar">
@@ -17,14 +16,30 @@ export class ChatDisplay extends Component {
             </h2>
             <UserAvatar user={user} />
           </div>
-          <div className="room-display">{currentRoom}</div>
+          <div className="room-display flex justify-center align-items-center">{currentRoom}</div>
         </nav>
         <div className="flex max-height-no-nav">
-          <div className="rooms-nav"></div>
+          <div className="rooms-nav flex align-items-center">
+            <h2 className="chat-title">Chat Rooms</h2>
+            <hr className="line-break" />
+            <div className="width-80 height-80 rooms">
+              {rooms.map((room) => {
+                return (
+                  <button
+                    key={room.roomName}
+                    className="button max-width"
+                    onClick={() => changeRoom(room.roomName)}
+                  >
+                    {room.roomName}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
           <div className="chat">
             <div className="message-box"></div>
             <div className="chat-form">
-              <MessageForm onSubmit={sendMessage} username={user.username} />
+              <MessageForm onSubmit={sendMessage} roomName={currentRoom} username={user.username} />
             </div>
           </div>
         </div>
