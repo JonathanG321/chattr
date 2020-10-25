@@ -18,10 +18,15 @@ export default function (state = initialState, action) {
         currentRoom: action.payload,
       };
     case ADD_MESSAGE:
-      const room = state.rooms.find((room) => room.roomName === action.payload.roomName);
+      const newRooms = state.rooms.map((room) => {
+        if (room.roomName === action.payload.roomName) {
+          room.messages = room.messages.concat([action.payload]);
+        }
+        return room;
+      });
       return {
         ...state,
-        rooms: state.rooms.concat([action.payload]),
+        rooms: newRooms,
       };
     default:
       return state;
