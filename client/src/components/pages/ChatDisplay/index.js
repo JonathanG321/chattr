@@ -39,7 +39,7 @@ export class ChatDisplay extends Component {
           <div className="chat">
             <div className="message-box"></div>
             <div className="chat-form">
-              <MessageForm onSubmit={sendMessage} roomName={currentRoom} username={user.username} />
+              <MessageForm onSubmit={sendMessage} roomName={currentRoom} />
             </div>
           </div>
         </div>
