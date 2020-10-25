@@ -8,9 +8,8 @@ const changeRoom = (roomName) => async (dispatch) => {
   dispatch({ type: CHANGE_ROOM, payload: roomName });
 };
 
-const sendMessage = (data) => async (dispatch, ...args) => {
-  console.log(args);
+const addMessage = (data) => async (dispatch, ...args) => {
   dispatch({ type: ADD_MESSAGE, payload: data });
 };
 
-export { addRoom, sendMessage, changeRoom };
+export { addRoom, addMessage, changeRoom };

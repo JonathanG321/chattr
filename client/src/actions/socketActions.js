@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { addRoom, sendMessage, changeRoom } from './roomActions';
+import { addRoom, addMessage, changeRoom } from './roomActions';
 import { CREATE_SOCKET } from './types';
 
 const createSocket = (username) => (dispatch) => {
@@ -23,7 +23,7 @@ const initSocketEvents = (socket) => (dispatch) => {
     dispatch(changeRoom(data));
   });
   socket.on('message', (data) => {
-    dispatch(sendMessage(data));
+    dispatch(addMessage(data));
   });
   socket.on('disconnect', () => {
     console.log('disconnected');
