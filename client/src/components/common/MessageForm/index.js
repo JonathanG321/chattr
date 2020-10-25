@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function MessageForm(props) {
-  const { onSubmit, roomName, username } = props;
+  const { onSubmit, roomName } = props;
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const message = {
       message: formData.get('message'),
       roomName,
-      username,
     };
     event.currentTarget.reset();
     onSubmit(message);
