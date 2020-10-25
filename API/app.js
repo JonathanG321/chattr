@@ -48,12 +48,11 @@ app.use(Authentication.setCurrentUser);
 
 io.on('connection', (socket) => {
   console.log('a user connected');
-  socket.username = socket.handshake.query.username;
   socket.join('General');
   socket.emit('join room', 'General');
   socket.emit('set room', 'General');
   socket.on('message', (data) => {
-    socket.emit('message', data);
+    socket.to(data.roomName).emit('message', {...data, username: socket.handshake.query.username});
   });
   socket.on('disconnect', () => {
     console.log('user disconnected');
