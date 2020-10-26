@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { changeRoom, addMessage } from '../actions/roomActions';
+import { changeRoom } from '../actions/roomActions';
 
 function RoomHOC(Component) {
   const mapStateToProps = (state) => ({
@@ -10,7 +10,6 @@ function RoomHOC(Component) {
   });
   const mapDispatchToProps = {
     changeRoom,
-    addMessage,
   };
   return connect(
     mapStateToProps,
@@ -21,7 +20,6 @@ function RoomHOC(Component) {
     }
     function sendMessage(message) {
       props.socket.emit('message', message);
-      return props.addMessage(message);
     }
     return <Component {...props} changeRoom={changeRoom} sendMessage={sendMessage} />;
   });
