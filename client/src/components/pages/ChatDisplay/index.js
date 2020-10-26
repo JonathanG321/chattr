@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import UserAvatar from '../../common/UserAvatar';
 import MessageForm from '../../common/MessageForm';
+import MessagesDisplay from '../../common/MessagesDisplay';
 import RoomHOC from '../../../HigherOrderComponents/RoomHOC';
 import '../styles.scss';
 
 export class ChatDisplay extends Component {
   render() {
     const { user, sendMessage, currentRoom, changeRoom, rooms } = this.props;
+    const fullCurrentRoom = rooms.find((room) => room.roomName === currentRoom);
     return (
       <main className="max-height">
         <nav className="navbar">
@@ -14,7 +16,9 @@ export class ChatDisplay extends Component {
             <h2 className="no-padding">
               <strong>{user.username}</strong>
             </h2>
-            <UserAvatar user={user} />
+            <div className="ml">
+              <UserAvatar user={user} />
+            </div>
           </div>
           <div className="room-display flex justify-center align-items-center">{currentRoom}</div>
         </nav>
@@ -37,7 +41,11 @@ export class ChatDisplay extends Component {
             </div>
           </div>
           <div className="chat">
-            <div className="message-box"></div>
+            <div className="message-box">
+              {!!fullCurrentRoom && (
+                <MessagesDisplay user={user} messages={fullCurrentRoom.messages} />
+              )}
+            </div>
             <div className="chat-form">
               <MessageForm onSubmit={sendMessage} roomName={currentRoom} />
             </div>
