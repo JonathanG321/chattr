@@ -13,9 +13,6 @@ const createSocket = (username) => (dispatch) => {
 };
 
 const initSocketEvents = (socket) => (dispatch) => {
-  socket.on('connect', () => {
-    console.log('connected');
-  });
   socket.on('join room', (data) => {
     dispatch(addRoom({ roomName: data, messages: [] }));
   });
@@ -24,9 +21,6 @@ const initSocketEvents = (socket) => (dispatch) => {
   });
   socket.on('message', (data) => {
     dispatch(addMessage(data));
-  });
-  socket.on('disconnect', () => {
-    console.log('disconnected');
   });
 };
 
