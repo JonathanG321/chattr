@@ -9,6 +9,7 @@ function MessageForm(props) {
     const message = {
       message: formData.get('message'),
       roomName,
+      date: new Date(),
     };
     event.currentTarget.reset();
     onSubmit(message);
