@@ -1,0 +1,21 @@
+.user-message {
+  display: flex;
+}
+
+.current-user-message {
+  flex-direction: row-reverse;
+}
+
+.message-content {
+  margin-top: 10px;
+  padding: 10px;
+  border: thin solid rgba(196, 196, 196, 0.776);
+  border-radius: 5px;
+  background-color: rgb(72, 72, 72);
+  max-width: 400px;
+  word-wrap: break-word;
+}
+
+.current-user-message-content {
+  background-color: brown;
+}

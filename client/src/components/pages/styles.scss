@@ -191,13 +191,16 @@ nav {
   height: 50px;
   border-radius: 100%;
   border: 2px solid rgba(196, 196, 196, 0.776);
-  margin-left: 20px;
 }
 
 .loading {
   margin-top: 25%;
   display: flex;
   justify-content: center;
+}
+
+.ml {
+  margin-left: 20px;
 }
 
 .line-break {
@@ -227,4 +230,23 @@ nav {
 
 .rooms::-webkit-scrollbar {
   display: none;
+}
+
+.messages-display {
+  flex-direction: column-reverse;
+  overflow-y: scroll;
+}
+
+.messages-display::-webkit-scrollbar-track {
+  background-color: #242424;
+}
+.messages-display::-webkit-scrollbar-thumb {
+  color: #242424;
+  background-color: #242424;
+  border-radius: 20px;
+}
+
+.margin-15 {
+  margin: 15px;
+  margin-top: 0px;
 }
