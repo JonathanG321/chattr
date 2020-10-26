@@ -5,6 +5,7 @@ const session = require('express-session');
 const redis = require('redis');
 const RedisStore = require('connect-redis')(session);
 const cors = require('cors');
+const User = require('./models/user.model');
 require('dotenv').config();
 require('./db/client');
 
@@ -51,8 +52,9 @@ io.on('connection', (socket) => {
   socket.join('General');
   socket.emit('join room', 'General');
   socket.emit('set room', 'General');
-  socket.on('message', (data) => {
-    socket.to(data.roomName).emit('message', {...data, username: socket.handshake.query.username});
+  socket.on('message', async (data) => {
+    const user = await User.findOne({ where: { username: socket.handshake.query.username } });
+    io.in(data.roomName).emit('message', { ...data, user });
   });
   socket.on('disconnect', () => {
     console.log('user disconnected');
