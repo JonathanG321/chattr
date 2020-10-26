@@ -8,6 +8,10 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case ADD_ROOM:
+      const roomExists = !!state.rooms.find((room) => action.payload.roomName === room.roomName);
+      if (roomExists) {
+        return state;
+      }
       return {
         ...state,
         rooms: state.rooms.concat([action.payload]),
@@ -20,7 +24,7 @@ export default function (state = initialState, action) {
     case ADD_MESSAGE:
       const newRooms = state.rooms.map((room) => {
         if (room.roomName === action.payload.roomName) {
-          room.messages = room.messages.concat([action.payload]);
+          room.messages = [action.payload].concat(room.messages);
         }
         return room;
       });
