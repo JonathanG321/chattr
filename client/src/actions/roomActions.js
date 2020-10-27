@@ -1,7 +1,11 @@
-import { ADD_ROOM, ADD_MESSAGE, CHANGE_ROOM } from './types';
+import { ADD_ROOM, ADD_MESSAGE, CHANGE_ROOM, REMOVE_ROOM } from './types';
 
 const addRoom = (room) => async (dispatch) => {
   dispatch({ type: ADD_ROOM, payload: room });
+};
+
+const removeRoom = (room) => async (dispatch) => {
+  dispatch({ type: REMOVE_ROOM, payload: room });
 };
 
 const changeRoom = (roomName) => async (dispatch) => {
@@ -12,4 +16,4 @@ const addMessage = (data) => async (dispatch, ...args) => {
   dispatch({ type: ADD_MESSAGE, payload: data });
 };
 
-export { addRoom, addMessage, changeRoom };
+export { addRoom, addMessage, changeRoom, removeRoom };
