@@ -1,8 +1,16 @@
-import { ADD_ROOM, ADD_MESSAGE, CHANGE_ROOM, REMOVE_ROOM } from '../actions/types';
+import {
+  ADD_ROOM,
+  ADD_MESSAGE,
+  CHANGE_ROOM,
+  REMOVE_ROOM,
+  ADD_NOTIFICATION,
+  REMOVE_NOTIFICATION,
+} from '../actions/types';
 
 const initialState = {
   rooms: [],
   currentRoom: null,
+  notifications: [],
 };
 
 export default function (state = initialState, action) {
@@ -42,6 +50,25 @@ export default function (state = initialState, action) {
       return {
         ...state,
         rooms: newRooms,
+      };
+    case ADD_NOTIFICATION:
+      if (state.notifications.includes(action.payload) || state.currentRoom === action.payload) {
+        return state;
+      }
+      return {
+        ...state,
+        notifications: state.notifications.concat([action.payload]),
+      };
+    case REMOVE_NOTIFICATION:
+      const newNotifications = state.notifications.map((notification) => {
+        if (notification !== action.payload) {
+          return notification;
+        }
+        return;
+      });
+      return {
+        ...state,
+        notifications: newNotifications,
       };
     default:
       return state;

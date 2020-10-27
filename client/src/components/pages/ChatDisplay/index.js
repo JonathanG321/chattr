@@ -44,7 +44,7 @@ export class ChatDisplay extends Component {
     this.props.history.push('/');
   }
   render() {
-    const { user, sendMessage, currentRoom, changeRoom, rooms } = this.props;
+    const { user, sendMessage, currentRoom, changeRoom, rooms, notifications } = this.props;
     const { displayLogout } = this.state;
     const fullCurrentRoom = rooms.find((room) => room.roomName === currentRoom);
     return (
@@ -77,7 +77,16 @@ export class ChatDisplay extends Component {
             <hr className="line-break" />
             <div className="width-80 height-80 rooms">
               {rooms.map((room) => {
-                return <RoomButton key={room.roomName} changeRoom={changeRoom} room={room} />;
+                return (
+                  <RoomButton
+                    key={room.roomName}
+                    displayNotification={notifications.some(
+                      (notification) => notification === room.roomName,
+                    )}
+                    changeRoom={changeRoom}
+                    room={room}
+                  />
+                );
               })}
             </div>
           </div>

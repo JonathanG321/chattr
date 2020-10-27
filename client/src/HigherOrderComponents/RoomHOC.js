@@ -7,6 +7,7 @@ function RoomHOC(Component) {
     rooms: state.rooms.rooms,
     currentRoom: state.rooms.currentRoom,
     socket: state.socket.socket,
+    notifications: state.rooms.notifications,
   });
   const mapDispatchToProps = {
     changeRoom,
