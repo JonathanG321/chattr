@@ -49,9 +49,9 @@ app.use(Authentication.setCurrentUser);
 
 io.on('connection', (socket) => {
   console.log('a user connected');
-  socket.join('General');
-  socket.emit('join room', 'General');
-  socket.emit('set room', 'General');
+  socket.join('General Chat');
+  socket.emit('join room', 'General Chat');
+  socket.emit('set room', 'General Chat');
   Object.keys(io.sockets.sockets).forEach((socketName) => {
     const otherSocket = io.sockets.sockets[socketName];
     const username = socket.handshake.query.username;
