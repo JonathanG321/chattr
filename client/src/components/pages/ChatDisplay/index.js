@@ -66,7 +66,9 @@ export class ChatDisplay extends Component {
               )}
             </div>
           </div>
-          <div className="room-display flex justify-center align-items-center">{currentRoom}</div>
+          <div className="room-display flex justify-center align-items-center">
+            {!!fullCurrentRoom ? fullCurrentRoom.displayRoomName : currentRoom}
+          </div>
         </nav>
         <div className="flex max-height-no-nav">
           <div className="rooms-nav flex align-items-center">
@@ -80,7 +82,7 @@ export class ChatDisplay extends Component {
                     className="button max-width"
                     onClick={() => changeRoom(room.roomName)}
                   >
-                    {room.roomName}
+                    {!!room.displayRoomName ? room.displayRoomName : room.roomName}
                   </button>
                 );
               })}
