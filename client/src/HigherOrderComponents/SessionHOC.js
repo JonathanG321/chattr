@@ -28,6 +28,7 @@ function SessionHOC(Component) {
       return props.createSession(credentials);
     }
     function signOut() {
+      props.socket.close();
       return props.destroySession();
     }
     function signUp(newUser) {
