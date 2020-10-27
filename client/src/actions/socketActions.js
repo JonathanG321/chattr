@@ -26,7 +26,6 @@ const initSocketEvents = (socket) => (dispatch) => {
     dispatch(changeRoom(data));
   });
   socket.on('message', (data) => {
-    console.log(data);
     dispatch(addMessage(data));
   });
 };
