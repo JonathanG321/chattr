@@ -52,14 +52,45 @@ io.on('connection', (socket) => {
   socket.join('General');
   socket.emit('join room', 'General');
   socket.emit('set room', 'General');
+  Object.keys(io.sockets.sockets).forEach((socketName) => {
+    const otherSocket = io.sockets.sockets[socketName];
+    const username = socket.handshake.query.username;
+    const otherUsername = otherSocket.handshake.query.username;
+    if (username === otherUsername) {
+      return;
+    }
+    const usernames = [username, otherUsername];
+    usernames.sort();
+    const newRoomName = usernames[0] + usernames[1];
+    otherSocket.join(newRoomName);
+    socket.join(newRoomName);
+    otherSocket.emit('join room', newRoomName);
+    socket.emit('join room', newRoomName);
+  });
   socket.on('message', async (data) => {
     const user = await User.findOne({ where: { username: socket.handshake.query.username } });
     io.in(data.roomName).emit('message', { ...data, user });
   });
   socket.on('disconnect', () => {
+    Object.keys(io.sockets.sockets).forEach((socketName) => {
+      const otherSocket = io.sockets.sockets[socketName];
+      const username = socket.handshake.query.username;
+      const otherUsername = otherSocket.handshake.query.username;
+      if (username === otherUsername) {
+        return;
+      }
+      const usernames = [username, otherUsername];
+      usernames.sort();
+      const newRoomName = usernames[0] + usernames[1];
+      otherSocket.leave(newRoomName);
+      socket.leave(newRoomName);
+      otherSocket.emit('leave room', newRoomName);
+      io.emit('leave room', newRoomName);
+    });
     console.log('user disconnected');
   });
 });
+
 const allowList = ['http://localhost:3001'];
 const corsOptions = {
   origin: allowList,
