@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import notificationIcon from './notification.gif';
+import notificationIcon from './notification.svg';
 import './styles.scss';
 
 function RoomButton(props) {
