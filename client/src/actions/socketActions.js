@@ -13,6 +13,7 @@ const createSocket = (username) => (dispatch) => {
 };
 
 const initSocketEvents = (socket) => (dispatch) => {
+  socket.on('connect', () => {});
   socket.on('join room', (data) => {
     dispatch(addRoom({ roomName: data, messages: [] }));
   });
