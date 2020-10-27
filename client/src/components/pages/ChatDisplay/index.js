@@ -1,13 +1,41 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import UserAvatar from '../../common/UserAvatar';
 import MessageForm from '../../common/MessageForm';
 import MessagesDisplay from '../../common/MessagesDisplay';
 import RoomHOC from '../../../HigherOrderComponents/RoomHOC';
-import '../styles.scss';
+import SessionHOC from '../../../HigherOrderComponents/SessionHOC';
+import './styles.scss';
 
 export class ChatDisplay extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayLogout: false,
+    };
+    this.clickUserIcon = this.clickUserIcon.bind(this);
+    this.logout = this.logout.bind(this);
+  }
+  clickUserIcon() {
+    const { displayLogout } = this.state;
+    if (displayLogout === false) {
+      this.setState({
+        displayLogout: true,
+      });
+    } else {
+      this.setState({
+        displayLogout: false,
+      });
+    }
+  }
+  logout() {
+    const { onSignOut } = this.props;
+    onSignOut();
+    this.props.history.push('/');
+  }
   render() {
     const { user, sendMessage, currentRoom, changeRoom, rooms } = this.props;
+    const { displayLogout } = this.state;
     const fullCurrentRoom = rooms.find((room) => room.roomName === currentRoom);
     return (
       <main className="max-height">
@@ -16,8 +44,13 @@ export class ChatDisplay extends Component {
             <h2 className="no-padding">
               <strong>{user.username}</strong>
             </h2>
-            <div className="ml">
+            <div onClick={this.clickUserIcon} className="ml absolute">
               <UserAvatar user={user} />
+              {displayLogout && (
+                <div onClick={this.logout} className="logout-button">
+                  hello
+                </div>
+              )}
             </div>
           </div>
           <div className="room-display flex justify-center align-items-center">{currentRoom}</div>
@@ -56,4 +89,4 @@ export class ChatDisplay extends Component {
   }
 }
 
-export default RoomHOC(ChatDisplay);
+export default withRouter(SessionHOC(RoomHOC(ChatDisplay)));
