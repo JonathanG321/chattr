@@ -5,7 +5,12 @@ export const User = {
   getCurrentUser() {
     return fetch(`${API_URL}/users/current`, {
       credentials: 'include',
-    }).then((res) => res.json());
+    }).then(async (res) => {
+      if (res.status !== 200) {
+        throw new NetworkError(await res.json());
+      }
+      return res.json();
+    });
   },
   create(newUser) {
     return fetch(`${API_URL}/users`, {
