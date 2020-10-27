@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import SessionHOC from '../../../HigherOrderComponents/SessionHOC';
 
 class HomePage extends Component {
   componentDidMount() {
-    const { onSignOut } = this.props;
-    onSignOut();
+    const { user } = this.props;
+    if (user) {
+      this.props.history.push('/chat');
+    }
   }
   render() {
     return (
@@ -24,4 +27,4 @@ class HomePage extends Component {
   }
 }
 
-export default SessionHOC(HomePage);
+export default withRouter(SessionHOC(HomePage));
