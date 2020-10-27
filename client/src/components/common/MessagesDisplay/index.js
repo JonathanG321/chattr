@@ -7,14 +7,29 @@ function MessagesDisplay(props) {
   const { user, messages } = props;
   return (
     <div className="messages-display max-height flex">
-      {messages.map((message) => (
-        <div
-          key={`${message.message} ${message.user.username} ${message.date}`}
-          className="message-container"
-        >
-          <UserMessage message={message} isCurrentUser={user.username === message.user.username} />
-        </div>
-      ))}
+      {messages.map((message) => {
+        if (!message.isAlert) {
+          return (
+            <div
+              key={`${message.message} ${message.user.username} ${message.date}`}
+              className="message-container"
+            >
+              <UserMessage
+                message={message}
+                isCurrentUser={user.username === message.user.username}
+              />
+            </div>
+          );
+        }
+        return (
+          <div
+            key={`${message.message} ${message.user.username} ${message.date}`}
+            className="message-container flex justify-center align-items-center"
+          >
+            <div className="alert-message">{message.message}</div>
+          </div>
+        );
+      })}
     </div>
   );
 }
