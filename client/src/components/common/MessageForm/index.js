@@ -12,6 +12,9 @@ function MessageForm(props) {
       date: new Date(),
     };
     event.currentTarget.reset();
+    if (!message.message) {
+      return;
+    }
     onSubmit(message);
   }
   return (
