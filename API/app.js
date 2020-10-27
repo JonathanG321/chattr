@@ -19,6 +19,8 @@ const io = require('socket.io')(http);
 
 app.use(logger('dev'));
 
+app.use(express.static('public'));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
