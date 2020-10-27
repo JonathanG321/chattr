@@ -5,6 +5,7 @@ import MessageForm from '../../common/MessageForm';
 import MessagesDisplay from '../../common/MessagesDisplay';
 import RoomHOC from '../../../HigherOrderComponents/RoomHOC';
 import SessionHOC from '../../../HigherOrderComponents/SessionHOC';
+import RoomButton from '../../common/RoomButton';
 import './styles.scss';
 
 export class ChatDisplay extends Component {
@@ -76,15 +77,7 @@ export class ChatDisplay extends Component {
             <hr className="line-break" />
             <div className="width-80 height-80 rooms">
               {rooms.map((room) => {
-                return (
-                  <button
-                    key={room.roomName}
-                    className="button max-width"
-                    onClick={() => changeRoom(room.roomName)}
-                  >
-                    {!!room.displayRoomName ? room.displayRoomName : room.roomName}
-                  </button>
-                );
+                return <RoomButton key={room.roomName} changeRoom={changeRoom} room={room} />;
               })}
             </div>
           </div>
