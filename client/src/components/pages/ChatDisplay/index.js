@@ -14,6 +14,7 @@ export class ChatDisplay extends Component {
       displayLogout: false,
     };
     this.clickUserIcon = this.clickUserIcon.bind(this);
+    this.clickNotUserIcon = this.clickNotUserIcon.bind(this);
     this.logout = this.logout.bind(this);
   }
   clickUserIcon() {
@@ -23,6 +24,13 @@ export class ChatDisplay extends Component {
         displayLogout: true,
       });
     } else {
+      this.setState({
+        displayLogout: false,
+      });
+    }
+  }
+  clickNotUserIcon(event) {
+    if (event.target.className !== 'user-avatar') {
       this.setState({
         displayLogout: false,
       });
@@ -38,17 +46,21 @@ export class ChatDisplay extends Component {
     const { displayLogout } = this.state;
     const fullCurrentRoom = rooms.find((room) => room.roomName === currentRoom);
     return (
-      <main className="max-height">
+      <main onClick={this.clickNotUserIcon} className="max-height">
         <nav className="navbar">
           <div className="user-display justify-center align-items-center">
             <h2 className="no-padding">
               <strong>{user.username}</strong>
             </h2>
-            <div onClick={this.clickUserIcon} className="ml absolute">
-              <UserAvatar user={user} />
+            <div onClick={this.clickUserIcon} className="ml">
+              <div className="user-avatar-container">
+                <UserAvatar user={user} />
+              </div>
               {displayLogout && (
-                <div onClick={this.logout} className="logout-button">
-                  hello
+                <div className="no-height relative logout-button">
+                  <div onClick={this.logout} className="button">
+                    Sign Out
+                  </div>
                 </div>
               )}
             </div>
