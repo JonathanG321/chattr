@@ -80,6 +80,7 @@ export class ChatDisplay extends Component {
                 return (
                   <RoomButton
                     key={room.roomName}
+                    isCurrentRoom={room.roomName === currentRoom}
                     displayNotification={notifications.some(
                       (notification) => notification === room.roomName,
                     )}

@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import notificationIcon from './notification.gif';
+import './styles.scss';
 
 function RoomButton(props) {
-  const { room, changeRoom, displayNotification = false } = props;
+  const { room, changeRoom, displayNotification = false, isCurrentRoom } = props;
   return (
     <button
-      className="button max-width flex align-items-center justify-center"
+      className={classnames('button', 'max-width', 'flex', 'align-items-center', 'justify-center', {
+        'current-room': isCurrentRoom,
+      })}
       onClick={() => changeRoom(room.roomName)}
     >
       <span className="width-80">
