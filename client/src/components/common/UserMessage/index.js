@@ -13,7 +13,7 @@ function UserMessage(props) {
       })}
     >
       <div>
-        <div>
+        <div className="limit-username">
           <strong>{message.user.username}</strong>
         </div>
         <div
