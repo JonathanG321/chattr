@@ -6,6 +6,7 @@ const LOAD = 'LOAD';
 const ADD_ROOM = 'ADD_ROOM';
 const ADD_MESSAGE = 'ADD_MESSAGE';
 const CHANGE_ROOM = 'CHANGE_ROOM';
+const REMOVE_ROOM = 'REMOVE_ROOM';
 
 export {
   CREATE_SOCKET,
@@ -16,4 +17,5 @@ export {
   ADD_ROOM,
   ADD_MESSAGE,
   CHANGE_ROOM,
+  REMOVE_ROOM,
 };
