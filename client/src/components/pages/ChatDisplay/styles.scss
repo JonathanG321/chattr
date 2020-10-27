@@ -17,6 +17,10 @@
   height: 0px;
 }
 
+.no-width {
+  width: 0px;
+}
+
 .user-avatar-container {
   height: 50px;
   border-radius: 100%;
@@ -25,4 +29,8 @@
 .user-avatar-container:hover {
   cursor: pointer;
   background-color: #484848e0;
+}
+
+.red-text {
+  color: rgb(255, 0, 0);
 }
