@@ -5,14 +5,13 @@ const session = require('express-session');
 const redis = require('redis');
 const RedisStore = require('connect-redis')(session);
 const cors = require('cors');
+const path = require('path');
 const User = require('./models/user.model');
 require('dotenv').config();
 require('./db/client');
 
 const Authentication = require('./middleware/authentication.middleware');
 const apiRouter = require('./routers/api.router');
-
-const redisClient = redis.createClient();
 
 const app = express();
 const http = require('http').createServer(app);
@@ -23,6 +22,8 @@ app.use(logger('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+const redisClientUrl = process.env.REDIS_URL || undefined;
+const redisClient = redis.createClient(redisClientUrl);
 redisClient.on('error', console.error);
 
 app.use(
@@ -100,6 +101,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use('/api', apiRouter);
+
+app.use('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 const PORT = process.env.PORT || 3000;
 http.listen(PORT, () => {
