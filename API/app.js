@@ -7,6 +7,7 @@ const RedisStore = require('connect-redis')(session);
 const cors = require('cors');
 const path = require('path');
 const User = require('./models/user.model');
+const socketEvent = require('./lib');
 require('dotenv').config();
 require('./db/client');
 
@@ -51,11 +52,10 @@ app.use(
 app.use(Authentication.setCurrentUser);
 
 io.on('connection', async (socket) => {
-  const GENERAL = 'General Chat';
   console.log('a user connected');
-  socket.join(GENERAL);
-  socket.emit('join room', GENERAL);
-  socket.emit('set room', GENERAL);
+  socket.join(socketEvent.GENERAL);
+  socket.emit(socketEvent.JOIN_ROOM, socketEvent.GENERAL);
+  socket.emit(socketEvent.SET_ROOM, socketEvent.GENERAL);
   Object.keys(io.sockets.sockets).forEach((socketName) => {
     const otherSocket = io.sockets.sockets[socketName];
     const username = socket.handshake.query.username;
@@ -68,20 +68,20 @@ io.on('connection', async (socket) => {
     const newRoomName = usernames[0] + usernames[1];
     otherSocket.join(newRoomName);
     socket.join(newRoomName);
-    otherSocket.emit('join room', newRoomName);
-    socket.emit('join room', newRoomName);
+    otherSocket.emit(socketEvent.JOIN_ROOM, newRoomName);
+    socket.emit(socketEvent.JOIN_ROOM, newRoomName);
   });
   const user = await User.findOne({ where: { username: socket.handshake.query.username } });
-  io.in(GENERAL).emit('message', {
+  io.in(socketEvent.GENERAL).emit(socketEvent.MESSAGE, {
     user,
-    roomName: GENERAL,
+    roomName: socketEvent.GENERAL,
     date: new Date(),
     message: `${socket.handshake.query.username} has joined the chat`,
     isAlert: true,
   });
-  socket.on('message', async (data) => {
+  socket.on(socketEvent.MESSAGE, async (data) => {
     const user = await User.findOne({ where: { username: socket.handshake.query.username } });
-    io.in(data.roomName).emit('message', { ...data, user });
+    io.in(data.roomName).emit(socketEvent.MESSAGE, { ...data, user });
   });
   socket.on('disconnect', () => {
     Object.keys(io.sockets.sockets).forEach((socketName) => {
@@ -96,12 +96,12 @@ io.on('connection', async (socket) => {
       const newRoomName = usernames[0] + usernames[1];
       otherSocket.leave(newRoomName);
       socket.leave(newRoomName);
-      otherSocket.emit('leave room', newRoomName);
-      io.emit('leave room', newRoomName);
+      otherSocket.emit(LEAVE_ROOM, newRoomName);
+      io.emit(LEAVE_ROOM, newRoomName);
     });
-    io.in(GENERAL).emit('message', {
+    io.in(socketEvent.GENERAL).emit(socketEvent.MESSAGE, {
       user,
-      roomName: GENERAL,
+      roomName: socketEvent.GENERAL,
       date: new Date(),
       message: `${socket.handshake.query.username} has left the chat`,
       isAlert: true,
