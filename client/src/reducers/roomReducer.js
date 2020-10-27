@@ -5,6 +5,7 @@ import {
   REMOVE_ROOM,
   ADD_NOTIFICATION,
   REMOVE_NOTIFICATION,
+  RESET_ROOMS,
 } from '../actions/types';
 
 const initialState = {
@@ -29,7 +30,7 @@ export default function (state = initialState, action) {
         if (room.roomName !== action.payload.roomName) {
           return room;
         }
-        return;
+        return null;
       });
       return {
         ...state,
@@ -64,12 +65,14 @@ export default function (state = initialState, action) {
         if (notification !== action.payload) {
           return notification;
         }
-        return;
+        return null;
       });
       return {
         ...state,
         notifications: newNotifications,
       };
+    case RESET_ROOMS:
+      return initialState;
     default:
       return state;
   }

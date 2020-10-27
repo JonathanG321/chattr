@@ -2,6 +2,7 @@ import { SIGN_IN, SIGN_OUT, SIGN_IN_FAILURE } from './types';
 import { Session } from '../requests/session';
 import { User } from '../requests/user';
 import { createSocket } from './socketActions';
+import { resetRooms } from './roomActions';
 
 const createSession = (userCredentials) => async (dispatch) => {
   try {
@@ -13,7 +14,11 @@ const createSession = (userCredentials) => async (dispatch) => {
 };
 
 const destroySession = () => (dispatch) =>
-  Session.destroy().then(() => dispatch({ type: SIGN_OUT }));
+  Session.destroy().then(() =>
+    dispatch({ type: SIGN_OUT }).then(() => {
+      dispatch(resetRooms());
+    }),
+  );
 
 const createUser = (newUser) => async (dispatch) => {
   try {
