@@ -12,6 +12,7 @@ function SessionHOC(Component) {
     user: state.session.user,
     errors: state.session.errors,
     isLoading: state.session.isLoading,
+    socket: state.socket.socket,
   });
   const mapDispatchToProps = {
     createSession,
