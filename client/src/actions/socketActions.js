@@ -1,9 +1,10 @@
 import io from 'socket.io-client';
+import { BASE_URL } from '../requests/base';
 import { addRoom, addMessage, changeRoom, removeRoom } from './roomActions';
 import { CREATE_SOCKET } from './types';
 
 const createSocket = (username) => (dispatch) => {
-  const socket = io('http://localhost:3000', {
+  const socket = io(BASE_URL, {
     query: {
       username,
     },
@@ -25,6 +26,7 @@ const initSocketEvents = (socket) => (dispatch) => {
     dispatch(changeRoom(data));
   });
   socket.on('message', (data) => {
+    console.log(data);
     dispatch(addMessage(data));
   });
 };
