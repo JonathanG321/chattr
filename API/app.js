@@ -50,11 +50,12 @@ app.use(
 
 app.use(Authentication.setCurrentUser);
 
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
+  const GENERAL = 'General Chat';
   console.log('a user connected');
-  socket.join('General Chat');
-  socket.emit('join room', 'General Chat');
-  socket.emit('set room', 'General Chat');
+  socket.join(GENERAL);
+  socket.emit('join room', GENERAL);
+  socket.emit('set room', GENERAL);
   Object.keys(io.sockets.sockets).forEach((socketName) => {
     const otherSocket = io.sockets.sockets[socketName];
     const username = socket.handshake.query.username;
@@ -69,6 +70,14 @@ io.on('connection', (socket) => {
     socket.join(newRoomName);
     otherSocket.emit('join room', newRoomName);
     socket.emit('join room', newRoomName);
+  });
+  const user = await User.findOne({ where: { username: socket.handshake.query.username } });
+  io.in(GENERAL).emit('message', {
+    user,
+    roomName: GENERAL,
+    date: new Date(),
+    message: `${socket.handshake.query.username} has joined the chat`,
+    isAlert: true,
   });
   socket.on('message', async (data) => {
     const user = await User.findOne({ where: { username: socket.handshake.query.username } });
@@ -89,6 +98,13 @@ io.on('connection', (socket) => {
       socket.leave(newRoomName);
       otherSocket.emit('leave room', newRoomName);
       io.emit('leave room', newRoomName);
+    });
+    io.in(GENERAL).emit('message', {
+      user,
+      roomName: GENERAL,
+      date: new Date(),
+      message: `${socket.handshake.query.username} has left the chat`,
+      isAlert: true,
     });
     console.log('user disconnected');
   });
