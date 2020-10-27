@@ -7,9 +7,10 @@
 }
 
 .logout-button {
-  position: absolute;
-  top: 28px;
-  left: 235px;
+  width: 102px;
+  position: relative;
+  top: -47px;
+  left: 60px;
   z-index: 1;
 }
 
@@ -23,6 +24,7 @@
 
 .user-avatar-container {
   height: 50px;
+  width: 50px;
   border-radius: 100%;
 }
 
