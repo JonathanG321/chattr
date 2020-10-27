@@ -12,10 +12,7 @@ export default function (state = initialState, action) {
         socket: action.payload,
       };
     case DESTROY_SOCKET:
-      return {
-        ...state,
-        socket: {},
-      };
+      return initialState;
     default:
       return state;
   }
