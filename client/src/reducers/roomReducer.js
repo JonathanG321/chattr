@@ -1,4 +1,4 @@
-import { ADD_ROOM, ADD_MESSAGE, CHANGE_ROOM } from '../actions/types';
+import { ADD_ROOM, ADD_MESSAGE, CHANGE_ROOM, REMOVE_ROOM } from '../actions/types';
 
 const initialState = {
   rooms: [],
@@ -15,6 +15,17 @@ export default function (state = initialState, action) {
       return {
         ...state,
         rooms: state.rooms.concat([action.payload]),
+      };
+    case REMOVE_ROOM:
+      const roomsWithoutRoom = state.rooms.map((room) => {
+        if (room.roomName !== action.payload.roomName) {
+          return room;
+        }
+        return;
+      });
+      return {
+        ...state,
+        rooms: roomsWithoutRoom,
       };
     case CHANGE_ROOM:
       return {
