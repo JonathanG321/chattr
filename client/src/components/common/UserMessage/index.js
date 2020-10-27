@@ -13,7 +13,9 @@ function UserMessage(props) {
       })}
     >
       <div>
-        <div className="message-username">{message.user.username}</div>
+        <div>
+          <strong>{message.user.username}</strong>
+        </div>
         <div
           className={classnames('message-content', {
             'current-user-message-content': isCurrentUser,

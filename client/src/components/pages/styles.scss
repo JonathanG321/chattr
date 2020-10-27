@@ -133,10 +133,12 @@ nav {
 }
 
 .chat-form {
+  position: relative;
   width: calc(100% - 2px);
   height: 20%;
   border: 2px solid rgba(196, 196, 196, 0.776);
   border-left: none;
+  z-index: 5;
 }
 
 .message-text {

@@ -5,3 +5,24 @@
 .relative {
   position: relative;
 }
+
+.logout-button {
+  position: absolute;
+  top: 28px;
+  left: 235px;
+  z-index: 1;
+}
+
+.no-height {
+  height: 0px;
+}
+
+.user-avatar-container {
+  height: 50px;
+  border-radius: 100%;
+}
+
+.user-avatar-container:hover {
+  cursor: pointer;
+  background-color: #484848e0;
+}
