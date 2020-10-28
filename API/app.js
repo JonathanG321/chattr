@@ -56,6 +56,7 @@ io.on('connection', async (socket) => {
   socket.join(socketEvent.GENERAL);
   socket.emit(socketEvent.JOIN_ROOM, socketEvent.GENERAL);
   socket.emit(socketEvent.SET_ROOM, socketEvent.GENERAL);
+  const user = await User.findOne({ where: { username: socket.handshake.query.username } });
   Object.keys(io.sockets.sockets).forEach((socketName) => {
     const otherSocket = io.sockets.sockets[socketName];
     const username = socket.handshake.query.username;
@@ -70,8 +71,14 @@ io.on('connection', async (socket) => {
     socket.join(newRoomName);
     otherSocket.emit(socketEvent.JOIN_ROOM, newRoomName);
     socket.emit(socketEvent.JOIN_ROOM, newRoomName);
+    io.in(newRoomName).emit(socketEvent.MESSAGE, {
+      user,
+      roomName: newRoomName,
+      date: new Date(),
+      message: `${socket.handshake.query.username} has joined the chat`,
+      isAlert: true,
+    });
   });
-  const user = await User.findOne({ where: { username: socket.handshake.query.username } });
   io.in(socketEvent.GENERAL).emit(socketEvent.MESSAGE, {
     user,
     roomName: socketEvent.GENERAL,
@@ -84,6 +91,7 @@ io.on('connection', async (socket) => {
     io.in(data.roomName).emit(socketEvent.MESSAGE, { ...data, user });
   });
   socket.on('disconnect', () => {
+    console.log();
     Object.keys(io.sockets.sockets).forEach((socketName) => {
       const otherSocket = io.sockets.sockets[socketName];
       const username = socket.handshake.query.username;
@@ -94,10 +102,17 @@ io.on('connection', async (socket) => {
       const usernames = [username, otherUsername];
       usernames.sort();
       const newRoomName = usernames[0] + usernames[1];
+      otherSocket.emit(socketEvent.LEAVE_ROOM, newRoomName);
+      io.in(newRoomName).emit(socketEvent.MESSAGE, {
+        user,
+        roomName: newRoomName,
+        date: new Date(),
+        message: `${socket.handshake.query.username} has left the chat`,
+        isAlert: true,
+      });
+      io.emit(socketEvent.LEAVE_ROOM, newRoomName);
       otherSocket.leave(newRoomName);
       socket.leave(newRoomName);
-      otherSocket.emit(socketEvent.LEAVE_ROOM, newRoomName);
-      io.emit(socketEvent.LEAVE_ROOM, newRoomName);
     });
     io.in(socketEvent.GENERAL).emit(socketEvent.MESSAGE, {
       user,
