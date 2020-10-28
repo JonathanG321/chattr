@@ -17,9 +17,15 @@ function MessageForm(props) {
     }
     onSubmit(message);
   }
+  function handleSubmitEnter(event) {
+    event.persist();
+    if (event.charCode === 13 && !event.shiftKey) {
+      handleSubmit(event);
+    }
+  }
   return (
     <div className="max-height">
-      <form className="flex max-height" onSubmit={handleSubmit}>
+      <form className="flex max-height" onKeyPress={handleSubmitEnter} onSubmit={handleSubmit}>
         <div className="message-text flex justify-center align-items-center">
           <textarea className="form-item text" name="message" />
         </div>
