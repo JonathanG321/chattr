@@ -38,10 +38,8 @@ export class ChatDisplay extends Component {
     }
   }
   logout() {
-    const { onSignOut, socket } = this.props;
+    const { onSignOut } = this.props;
     onSignOut();
-    socket.disconnect();
-    this.props.history.push('/');
   }
   render() {
     const { user, sendMessage, currentRoom, changeRoom, rooms, notifications } = this.props;

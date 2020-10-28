@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import {
   createSession,
   destroySession,
@@ -20,33 +21,35 @@ function SessionHOC(Component) {
     createUser,
     getCurrentUser,
   };
-  return connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )((props) => {
-    function signIn(credentials) {
-      return props.createSession(credentials);
-    }
-    function signOut() {
-      props.socket.close();
-      return props.destroySession();
-    }
-    function signUp(newUser) {
-      return props.createUser(newUser);
-    }
-    function getCurrentUser() {
-      return props.getCurrentUser();
-    }
-    return (
-      <Component
-        {...props}
-        getCurrentUser={getCurrentUser}
-        onSignIn={signIn}
-        onSignUp={signUp}
-        onSignOut={signOut}
-      />
-    );
-  });
+  return withRouter(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps,
+    )((props) => {
+      function signIn(credentials) {
+        return props.createSession(credentials);
+      }
+      function signOut() {
+        props.socket.close();
+        return props.destroySession(props.history);
+      }
+      function signUp(newUser) {
+        return props.createUser(newUser);
+      }
+      function getCurrentUser() {
+        return props.getCurrentUser();
+      }
+      return (
+        <Component
+          {...props}
+          getCurrentUser={getCurrentUser}
+          onSignIn={signIn}
+          onSignUp={signUp}
+          onSignOut={signOut}
+        />
+      );
+    }),
+  );
 }
 
 export default SessionHOC;

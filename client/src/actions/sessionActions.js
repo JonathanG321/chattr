@@ -13,8 +13,13 @@ const createSession = (userCredentials) => async (dispatch) => {
   }
 };
 
-const destroySession = () => (dispatch) =>
-  Session.destroy().then(() => dispatch({ type: SIGN_OUT }));
+const destroySession = (history) => (dispatch) =>
+  Session.destroy().then(() => dispatch(signOut(history)));
+
+const signOut = (history) => (dispatch) => {
+  dispatch({ type: SIGN_OUT });
+  history.push('/');
+};
 
 const createUser = (newUser) => async (dispatch) => {
   try {
