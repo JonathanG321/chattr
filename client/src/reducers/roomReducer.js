@@ -5,7 +5,7 @@ import {
   REMOVE_ROOM,
   ADD_NOTIFICATION,
   REMOVE_NOTIFICATION,
-  RESET_ROOMS,
+  SIGN_OUT,
 } from '../actions/types';
 
 const initialState = {
@@ -71,7 +71,7 @@ export default function (state = initialState, action) {
         ...state,
         notifications: newNotifications,
       };
-    case RESET_ROOMS:
+    case SIGN_OUT:
       return initialState;
     default:
       return state;

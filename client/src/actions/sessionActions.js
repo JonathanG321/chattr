@@ -14,11 +14,7 @@ const createSession = (userCredentials) => async (dispatch) => {
 };
 
 const destroySession = () => (dispatch) =>
-  Session.destroy().then(() =>
-    dispatch({ type: SIGN_OUT }).then(() => {
-      dispatch(resetRooms());
-    }),
-  );
+  Session.destroy().then(() => dispatch({ type: SIGN_OUT }));
 
 const createUser = (newUser) => async (dispatch) => {
   try {

@@ -16,12 +16,7 @@ export default function (state = initialState, action) {
         isLoading: false,
       };
     case SIGN_OUT:
-      return {
-        ...state,
-        user: null,
-        errors: null,
-        isLoading: false,
-      };
+      return initialState;
     case SIGN_IN_FAILURE:
       return {
         ...state,

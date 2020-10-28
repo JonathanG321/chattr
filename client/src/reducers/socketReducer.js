@@ -1,4 +1,4 @@
-import { CREATE_SOCKET, DESTROY_SOCKET } from '../actions/types';
+import { CREATE_SOCKET } from '../actions/types';
 
 const initialState = {
   socket: {},
@@ -11,7 +11,7 @@ export default function (state = initialState, action) {
         ...state,
         socket: action.payload,
       };
-    case DESTROY_SOCKET:
+    case SIGN_OUT:
       return initialState;
     default:
       return state;
