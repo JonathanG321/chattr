@@ -96,8 +96,8 @@ io.on('connection', async (socket) => {
       const newRoomName = usernames[0] + usernames[1];
       otherSocket.leave(newRoomName);
       socket.leave(newRoomName);
-      otherSocket.emit(LEAVE_ROOM, newRoomName);
-      io.emit(LEAVE_ROOM, newRoomName);
+      otherSocket.emit(socketEvent.LEAVE_ROOM, newRoomName);
+      io.emit(socketEvent.LEAVE_ROOM, newRoomName);
     });
     io.in(socketEvent.GENERAL).emit(socketEvent.MESSAGE, {
       user,
