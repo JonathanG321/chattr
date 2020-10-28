@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function MessageForm(props) {
-  const { onSubmit, roomName } = props;
+  const { onSubmit, roomName, isDisabled = false } = props;
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -25,12 +25,17 @@ function MessageForm(props) {
   }
   return (
     <div className="max-height">
-      <form className="flex max-height" onKeyPress={handleSubmitEnter} onSubmit={handleSubmit}>
+      <form
+        className="flex max-height"
+        disabled={isDisabled}
+        onKeyPress={handleSubmitEnter}
+        onSubmit={handleSubmit}
+      >
         <div className="message-text flex justify-center align-items-center">
-          <textarea className="form-item text" name="message" />
+          <textarea disabled={isDisabled} className="form-item text" name="message" />
         </div>
         <div className="message-submit flex justify-center align-items-center">
-          <input type="submit" className="button" value="Send Message" />
+          <input disabled={isDisabled} type="submit" className="button" value="Send Message" />
         </div>
       </form>
     </div>

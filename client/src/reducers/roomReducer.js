@@ -6,6 +6,8 @@ import {
   ADD_NOTIFICATION,
   REMOVE_NOTIFICATION,
   SIGN_OUT,
+  ENABLE_ROOM,
+  DISABLE_ROOM,
 } from '../actions/types';
 
 const initialState = {
@@ -40,6 +42,28 @@ export default function (state = initialState, action) {
       return {
         ...state,
         currentRoom: action.payload,
+      };
+    case DISABLE_ROOM:
+      const newRoomsDisabled = state.rooms.map((room) => {
+        if (room.roomName === action.payload) {
+          room.disabled = true;
+        }
+        return room;
+      });
+      return {
+        ...state,
+        rooms: newRoomsDisabled,
+      };
+    case ENABLE_ROOM:
+      const newRoomsEnabled = state.rooms.map((room) => {
+        if (room.roomName === action.payload) {
+          room.disabled = false;
+        }
+        return room;
+      });
+      return {
+        ...state,
+        rooms: newRoomsEnabled,
       };
     case ADD_MESSAGE:
       const newRooms = state.rooms.map((room) => {

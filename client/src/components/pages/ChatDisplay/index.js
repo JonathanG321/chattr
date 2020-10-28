@@ -96,7 +96,13 @@ export class ChatDisplay extends Component {
               )}
             </div>
             <div className="chat-form">
-              <MessageForm onSubmit={sendMessage} roomName={currentRoom} />
+              {!!fullCurrentRoom && (
+                <MessageForm
+                  isDisabled={fullCurrentRoom.disabled}
+                  onSubmit={sendMessage}
+                  roomName={currentRoom}
+                />
+              )}
             </div>
           </div>
         </div>

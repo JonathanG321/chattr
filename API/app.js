@@ -13,6 +13,7 @@ require('./db/client');
 
 const Authentication = require('./middleware/authentication.middleware');
 const apiRouter = require('./routers/api.router');
+const { ENABLE_ROOM } = require('./lib');
 
 const app = express();
 const http = require('http').createServer(app);
@@ -78,6 +79,7 @@ io.on('connection', async (socket) => {
       message: `${socket.handshake.query.username} has joined the chat`,
       isAlert: true,
     });
+    io.in(newRoomName).emit(socketEvent.ENABLE_ROOM, newRoomName);
   });
   io.in(socketEvent.GENERAL).emit(socketEvent.MESSAGE, {
     user,

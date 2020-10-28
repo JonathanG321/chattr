@@ -5,6 +5,8 @@ import {
   REMOVE_ROOM,
   ADD_NOTIFICATION,
   REMOVE_NOTIFICATION,
+  DISABLE_ROOM,
+  ENABLE_ROOM,
 } from './types';
 
 const addRoom = (room) => async (dispatch) => {
@@ -13,6 +15,13 @@ const addRoom = (room) => async (dispatch) => {
 
 const removeRoom = (room) => async (dispatch) => {
   dispatch({ type: REMOVE_ROOM, payload: room });
+};
+
+const disableRoom = (roomName) => async (dispatch) => {
+  dispatch({ type: DISABLE_ROOM, payload: roomName });
+};
+const enableRoom = (roomName) => async (dispatch) => {
+  dispatch({ type: ENABLE_ROOM, payload: roomName });
 };
 
 const changeRoom = (roomName) => async (dispatch) => {
@@ -33,4 +42,13 @@ const removeNotification = (notification) => async (dispatch) => {
   dispatch({ type: REMOVE_NOTIFICATION, payload: notification });
 };
 
-export { addRoom, addMessage, changeRoom, removeRoom, addNotification, removeNotification };
+export {
+  addRoom,
+  addMessage,
+  changeRoom,
+  removeRoom,
+  addNotification,
+  removeNotification,
+  disableRoom,
+  enableRoom,
+};
