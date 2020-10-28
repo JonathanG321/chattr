@@ -1,4 +1,4 @@
-import { CREATE_SOCKET } from '../actions/types';
+import { CREATE_SOCKET, SIGN_OUT } from '../actions/types';
 
 const initialState = {
   socket: {},
