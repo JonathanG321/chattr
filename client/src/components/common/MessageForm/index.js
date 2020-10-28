@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import './styles.scss';
 
 function MessageForm(props) {
   const { onSubmit, roomName, isDisabled = false } = props;
@@ -31,11 +33,26 @@ function MessageForm(props) {
         onKeyPress={handleSubmitEnter}
         onSubmit={handleSubmit}
       >
-        <div className="message-text flex justify-center align-items-center">
-          <textarea disabled={isDisabled} className="form-item text" name="message" />
+        <div className={classnames('message-text', 'flex', 'justify-center', 'align-items-center')}>
+          <textarea
+            disabled={isDisabled}
+            className={classnames('form-item', 'text', {
+              disabled: isDisabled,
+            })}
+            name="message"
+          />
         </div>
-        <div className="message-submit flex justify-center align-items-center">
-          <input disabled={isDisabled} type="submit" className="button" value="Send Message" />
+        <div
+          className={classnames('message-submit', 'flex', 'justify-center', 'align-items-center')}
+        >
+          <input
+            disabled={isDisabled}
+            type="submit"
+            className={classnames('button', {
+              disabled: isDisabled,
+            })}
+            value="Send Message"
+          />
         </div>
       </form>
     </div>
