@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
+    "start:dev": "nodemon app.js",
     "db:create": "createdb --echo chattr_dev",
     "db:drop": "dropdb --if-exists --echo chattr_dev",
     "db:migrate": "node db/migrations.js",
@@ -31,5 +32,8 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.5"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }

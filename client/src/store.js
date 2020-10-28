@@ -6,13 +6,11 @@ const initialState = {};
 
 const middleware = [thunk]; // allows async actions
 
-const store = createStore(
-  rootReducer,
-  initialState,
-  compose(
-    applyMiddleware(...middleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  ),
-);
+const arr = [
+  applyMiddleware(...middleware),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+].filter((a) => a);
+
+const store = createStore(rootReducer, initialState, compose(...arr));
 
 export default store;
