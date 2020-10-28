@@ -16,7 +16,7 @@ export default function (state = initialState, action) {
         isLoading: false,
       };
     case SIGN_OUT:
-      return initialState;
+      return { ...initialState, isLoading: false };
     case SIGN_IN_FAILURE:
       return {
         ...state,
