@@ -1,0 +1,38 @@
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.logout-button {
+  width: 102px;
+  position: relative;
+  top: -47px;
+  left: 60px;
+  z-index: 1;
+}
+
+.no-height {
+  height: 0px;
+}
+
+.no-width {
+  width: 0px;
+}
+
+.user-avatar-container {
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+}
+
+.user-avatar-container:hover {
+  cursor: pointer;
+  background-color: #484848e0;
+}
+
+.red-text {
+  color: rgb(255, 0, 0);
+}

@@ -9,6 +9,12 @@ const User = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
+        async isUnique(username) {
+          const user = await User.findOne({ where: { username } });
+          if (user) {
+            throw new Error('Username already exists');
+          }
+        },
         notEmpty: {
           msg: 'Username cannot be empty',
         },
@@ -47,7 +53,9 @@ const User = sequelize.define(
       defaultValue:
         'https://banner2.cleanpng.com/20180401/dbq/kisspng-user-profile-computer-icons-profile-5ac09245049c32.0935523415225697970189.jpg',
       validate: {
-        isUrl: true,
+        isUrl: {
+          msg: 'Avatar must be a URL',
+        },
       },
     },
     passwordDigest: {
