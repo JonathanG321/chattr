@@ -12,7 +12,7 @@ To get run this app locally, you'll need a working NodeJS development environmen
 
 First, run "npm install" within both the client and API directories.
 
-Next, run "npm run db:migrate" to set up the database. If you would like to use junk data, you could then run "npm run db:seed"
+Next, run "npm run db:migrate" in the API directory to set up the database. If you would like to use junk data, you could then run "npm run db:seed" within the same directory.
 
 This app is set to run on port 3000 by default.
 
