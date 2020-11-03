@@ -1,7 +1,5 @@
 # Chattr (js)
 
----
-
 A simple Chat App written in Javascript for NodeJS.
 ![Chat Page](./main_page.png)
 
